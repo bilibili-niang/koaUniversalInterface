@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "93996f4e-15cc-40cf-8d4d-cfcbf569202e",
+		"name": "testapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20608320"
+	},
+	"item": [
+		{
+			"name": "用户模块",
+			"item": [
+				{
+					"name": "修改密码",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"123456\"\r\n}"
+						},
+						"url": "http://127.0.0.1/users/"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"   const res = pm.response.json()\r",
+									"\r",
+									"    pm.collectionVariables.set('token', res.result.token);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_name",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1/users/register"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "商品模块",
+			"item": [
+				{
+					"name": "商品图片上传接口",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1/goods/upload"
+					},
+					"response": []
+				},
+				{
+					"name": "商品发布接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1/goods/"
+					},
+					"response": []
+				},
+				{
+					"name": "商品更新模块",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"goods_name\":\"蓝牙音箱pro\",\r\n    \"goods_price\":2000,\r\n    \"goods_num\":9,\r\n    \"goods_img\":\"upload_854c401df952720b4a26c07f18471136.png\"\r\n}"
+						},
+						"url": "http://127.0.0.1/goods/1"
+					},
+					"response": []
+				},
+				{
+					"name": "商品删除接口",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1/goods/1"
+					},
+					"response": []
+				},
+				{
+					"name": "商品下架接口",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1/goods/2/off"
+					},
+					"response": []
+				},
+				{
+					"name": "商品上架接口",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1/goods/1/on"
+					},
+					"response": []
+				},
+				{
+					"name": "获取商品列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1/goods/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "购物车",
+			"item": [
+				{
+					"name": "添加购物车成功",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"goods_id\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/carts/"
+					},
+					"response": []
+				},
+				{
+					"name": "获取购物车列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1/carts/"
+					},
+					"response": []
+				},
+				{
+					"name": "更新购物车",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"number\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/carts/10"
+					},
+					"response": []
+				},
+				{
+					"name": "购物车删除",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\":[1,2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/carts/"
+					},
+					"response": []
+				},
+				{
+					"name": "购物车全选接口",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1/carts/selectAll"
+					},
+					"response": []
+				},
+				{
+					"name": "购物车全部取消选择",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1/carts/unSelectAll"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户地址",
+			"item": [
+				{
+					"name": "获取用户地址",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1/address"
+					},
+					"response": []
+				},
+				{
+					"name": "用户地址添加",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"consignee\":\"小胖\",\r\n    \"phone\":\"18745612312\",\r\n    \"address\":\"earth\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/address"
+					},
+					"response": []
+				},
+				{
+					"name": "更新地址",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"consignee\": \"小胖123\",\r\n    \"phone\": \"18745612312\",\r\n    \"address\": \"earth\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/address/1"
+					},
+					"response": []
+				},
+				{
+					"name": "删除地址",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1/address/1"
+					},
+					"response": []
+				},
+				{
+					"name": "设置默认地址",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": "http://127.0.0.1/address/6"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "订单",
+			"item": [
+				{
+					"name": "提交订单",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address_id\":2,\r\n    \"goods_info\":\"测试商品信息订单\",\r\n    \"total\":\"200.99\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "获取订单列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1/orders/"
+					},
+					"response": []
+				},
+				{
+					"name": "更新订单状态",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1/orders/1"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
